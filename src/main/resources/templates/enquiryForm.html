@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>My Bootstrap Website</title>
+
+	<!-- Bootstrap CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+
+
+	<div class="container">
+
+		<ul class="nav">
+				<li class="nav-item"><a class="nav-link" href="dashboard">View Dashboard</a></li>
+				<li class="nav-item"><a class="nav-link" href="enquiry">Add Enquiry</a></li>
+				<li class="nav-item"><a class="nav-link" href="view-enquries">View
+						Enquries</a></li>
+				<li class="nav-item"><a class="nav-link" href="logout">logout</a></li>
+
+			</ul>
+		
+		
+		<hr/>
+		
+		<h1>Add New Enquiry</h1>
+
+		<font style="color: red;">
+			<p th:text="${emsg}"></p>
+		</font>
+
+		<font style="color: green;">
+			<p th:text="${smsg}"></p>
+		</font>
+
+		<form th:action="@{/addEnq}" th:object="${enq}"  method="post">
+
+
+			<table class="table table-bordered table-striped">
+				<tr>
+					<td>Student name :</td>
+					<td><input type="text" th:field="*{stuName}" required></td>
+					<input type="hidden" th:field="*{enqId}" required>
+				</tr>
+				<tr>
+					<td>Student Phno :</td>
+					<td><input type="number" th:field="*{studentPhno}" required></td>
+				</tr>
+				<tr>
+					<td>Training mode :</td>
+					<td>
+						<select th:field="*{classMode}" required>
+							<option value="Online">Online</option>
+							<option value="Clasroom">Clasroom</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Select Course :</td>
+					<td>
+						<select th:field="*{courseName}" required>
+							<option value="Java">Java</option>
+							<option value="Python">Python</option>
+							<option value="Devops">Devops</option>
+							<option value="AWS">AWS</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Enquiry :</td>
+					<td>
+						<select th:field="*{enqStatus}" required>
+							<option value="Open">Open</option>
+							<option value="Enrolled">Enrolled</option>
+							<option value="Lost">Lost</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>
+						<input type="submit" value="save" class="btn btn-primary">
+					</td>
+				</tr>
+			</table>
+
+		</form>
+
+	</div>
+
+
+
+
+
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

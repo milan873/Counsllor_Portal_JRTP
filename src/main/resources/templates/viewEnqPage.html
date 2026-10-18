@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>My Bootstrap Website</title>
+
+<!-- Bootstrap CSS -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+</head>
+<body>
+
+	<div class="container">
+
+		<ul class="nav">
+			<li class="nav-item"><a class="nav-link" href="dashboard">View
+					Dashboard</a></li>
+			<li class="nav-item"><a class="nav-link" href="enquiry">Add
+					Enquiry</a></li>
+			<li class="nav-item"><a class="nav-link" href="view-enquries">View
+					Enquries</a></li>
+			<li class="nav-item"><a class="nav-link" href="logout">logout</a></li>
+
+		</ul>
+
+
+		<hr />
+		<h1>View Enquries Here</h1>
+
+		<form th:action="@{/filter-enqs}" th:object="${viewEnqsFilterRequest}"
+			method="post">
+			<table>
+				<tr>
+
+					<td>Class Mode: <select th:field="*{classMode}">
+							<option value="">-Select-</option>
+							<option value="Online">Online</option>
+							<option value="Clasroom">Clasroom</option>
+					</select>
+					</td>
+					<td>Course Name: <select th:field="*{courseName}">
+							<option value="">-Select-</option>
+							<option value="Java">Java</option>
+							<option value="Python">Python</option>
+							<option value="Devops">Devops</option>
+							<option value="AWS">AWS</option>
+					</select>
+					</td>
+					<td>Enquiry Status: <select th:field="*{enqStatus}">
+							<option value="">-Select-</option>
+							<option value="Open">Open</option>
+							<option value="Enrolled">Enrolled</option>
+							<option value="Lost">Lost</option>
+					</select>
+					</td>
+					<td><input type="submit" value="Search"
+						class="btn btn-primary" /></td>
+
+				</tr>
+			</table>
+
+		</form>
+
+
+		<div class="table-responsive">
+			<table class="table table-bordered table-hover">
+				<thead class="table-dark">
+					<th>S.No</th>
+					<th>Name</th>
+					<th>Course</th>
+					<th>Mode</th>
+					<th>Phno</th>
+					<th>Status</th>
+					<th>Edit</th>
+				</thead>
+				<tbody>
+					<tr th:each="enq, loopCounter: ${enquries}">
+						<td th:text="${loopCounter.index+1}"></td>
+						<td th:text="${enq.stuName}"></td>
+						<td th:text="${enq.courseName}"></td>
+						<td th:text="${enq.classMode}"></td>
+						<td th:text="${enq.studentPhno}"></td>
+						<td th:text="${enq.enqStatus}"></td>
+						<td><a th:href="@{'/editEnq?enqId='+${enq.enqId}}">Edit</a></td>
+					</tr>
+
+					<tr th:if="${enquries.size()==0}">
+						<td colspan="7">No Records Found</td>
+
+					</tr>
+				</tbody>
+			</table>
+
+
+
+		</div>
+
+
+	</div>
+
+
+
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
